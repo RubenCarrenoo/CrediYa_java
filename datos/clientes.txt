@@ -1,0 +1,3 @@
+# id;nombre;documento;correo;telefono
+1;Carlos Gómez;1098765432;carlos@gmail.com;3001234567
+2;Ana Rodríguez;1122334455;ana@gmail.com;3019876543

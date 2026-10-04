@@ -1,0 +1,3 @@
+# id;nombre;documento;rol;correo;salario
+1;Juan Pérez;123456789;Asesor;juan@crediya.com;2500000.0
+2;María López;987654321;Gestora;maria@crediya.com;2800000.0

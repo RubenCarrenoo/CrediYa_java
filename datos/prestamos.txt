@@ -1,0 +1,4 @@
+# id;clienteId;empleadoId;monto;interes;cuotas;fechaInicio;estado;saldoPendiente
+1;1;1;1000000.0;10.0;10;2026-06-01;PENDIENTE;880000.0
+2;2;2;500000.0;10.0;5;2026-05-01;PAGADO;0.0
+3;2;1;2000000.0;10.0;10;2026-09-15;PENDIENTE;2200000.0
