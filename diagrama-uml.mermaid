@@ -1,0 +1,120 @@
+classDiagram
+    direction LR
+
+    class Persona {
+        <<abstract>>
+        -int id
+        -String nombre
+        -String documento
+        -String correo
+        +getTipo() String
+    }
+    class Cliente {
+        -String telefono
+        +getTipo() String
+    }
+    class Empleado {
+        -String rol
+        -double salario
+        +getTipo() String
+    }
+    class Prestamo {
+        -int id
+        -double monto
+        -double interes
+        -int cuotas
+        -LocalDate fechaInicio
+        -EstadoPrestamo estado
+        -double saldoPendiente
+        +getMontoTotal() double
+        +getCuotaMensual() double
+        +estaEnMora() boolean
+        +resumen() String
+    }
+    class Pago {
+        -int id
+        -int prestamoId
+        -LocalDate fechaPago
+        -double monto
+    }
+    class EstadoPrestamo {
+        <<enumeration>>
+        PENDIENTE
+        PAGADO
+        VENCIDO
+    }
+
+    Persona <|-- Cliente
+    Persona <|-- Empleado
+    Cliente "1" --> "0..*" Prestamo : solicita
+    Empleado "1" --> "0..*" Prestamo : gestiona
+    Prestamo "1" --> "0..*" Pago : recibe
+    Prestamo --> EstadoPrestamo
+
+    class Guardable~T~ {
+        <<interface>>
+        +guardar(T)
+    }
+    class Consultable~T~ {
+        <<interface>>
+        +listar() List~T~
+        +buscarPorId(int) Optional~T~
+    }
+    class Modificable~T~ {
+        <<interface>>
+        +actualizar(T)
+        +eliminar(int)
+    }
+    class EmpleadoDAO
+    class ClienteDAO
+    class PrestamoDAO
+    class PagoDAO
+    class ConexionBD {
+        <<singleton>>
+        +getInstancia() ConexionBD
+        +getConexion() Connection
+    }
+
+    Guardable <|.. EmpleadoDAO
+    Consultable <|.. EmpleadoDAO
+    Modificable <|.. EmpleadoDAO
+    Guardable <|.. ClienteDAO
+    Consultable <|.. ClienteDAO
+    Modificable <|.. ClienteDAO
+    Guardable <|.. PrestamoDAO
+    Consultable <|.. PrestamoDAO
+    Guardable <|.. PagoDAO
+    Consultable <|.. PagoDAO
+    EmpleadoDAO ..> ConexionBD
+    ClienteDAO ..> ConexionBD
+    PrestamoDAO ..> ConexionBD
+    PagoDAO ..> ConexionBD
+
+    class EmpleadoService
+    class ClienteService
+    class PrestamoService
+    class PagoService
+    class ReporteService
+    class PersistenciaService
+    class ArchivoService
+    class CalculadoraPrestamo {
+        <<util>>
+        +calcularMontoTotal()
+        +calcularCuotaMensual()
+    }
+    class MenuConsola
+
+    EmpleadoService --> EmpleadoDAO
+    ClienteService --> ClienteDAO
+    PrestamoService --> PrestamoDAO
+    PagoService --> PagoDAO
+    ReporteService --> PrestamoDAO
+    ReporteService --> PagoDAO
+    PersistenciaService --> ArchivoService
+    Prestamo ..> CalculadoraPrestamo
+    MenuConsola --> EmpleadoService
+    MenuConsola --> ClienteService
+    MenuConsola --> PrestamoService
+    MenuConsola --> PagoService
+    MenuConsola --> ReporteService
+    MenuConsola --> PersistenciaService
